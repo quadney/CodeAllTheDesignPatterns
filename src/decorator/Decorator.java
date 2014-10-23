@@ -3,15 +3,15 @@ package decorator;
 /**
  * Created by ssyyddnneeyy on 10/22/14.
  */
-public abstract class Decorator implements Component {
+public abstract class Decorator implements Sandwich {
+    private Sandwich parent;
 
-    @Override
-    public void operationA() {
-
+    public Decorator(Sandwich c){
+        parent = c;
     }
 
-    @Override
-    public void operationB() {
-
+    protected Sandwich getParent(){
+        return parent;
     }
+
 }
