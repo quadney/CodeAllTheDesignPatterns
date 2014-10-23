@@ -2,6 +2,10 @@ package dp;
 
 import builder.PizzaDirector;
 import builder.PizzaImageBuilder;
+import decorator.LettuceToppingComponent;
+import decorator.Sandwich;
+import decorator.TurkeyToppingComponent;
+import decorator.WheatBreadBaseComponent;
 import prototype.ConcretePrototypeA;
 import prototype.PrototypeFactory;
 
@@ -20,20 +24,51 @@ public class ImageFrame extends JFrame {
 	}
 
 	public void addMenu(){
-		JMenu menu = new JMenu("File");
+        JMenuBar menuBar = new JMenuBar();
 
-		JMenuItem builder = new JMenuItem("Builder");
-		builder.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent event){
-				performBuilder();
+        addCreationalPatterns(menuBar);
+        addStructuralPatterns(menuBar);
+        addBehavioralPatterns(menuBar);
+
+		this.setJMenuBar(menuBar);
+	}
+
+    // ----------------------------------------------------------------------
+    // CREATIONAL PATTERNS
+    // ----------------------------------------------------------------------
+
+    public void addCreationalPatterns(JMenuBar bar){
+        JMenu creational = new JMenu("Creational Patterns");
+        bar.add(creational);
+
+        JMenuItem abstractFactory = new JMenuItem("Abstract Factory");
+        abstractFactory.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                performAbstractFactory();
+            }
+        });
+        creational.add(abstractFactory);
+
+        JMenuItem builder = new JMenuItem("Builder");
+        builder.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                performBuilder();
                 SwingUtilities.invokeLater(new Runnable(){
                     public void run(){
                         repaint();
                     }
                 });
-			}
-		});
-		menu.add(builder);
+            }
+        });
+        creational.add(builder);
+
+        JMenuItem factoryMethod = new JMenuItem("Factory Method");
+        factoryMethod.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                performFactoryMethod();
+            }
+        });
+        creational.add(factoryMethod);
 
         JMenuItem prototype = new JMenuItem("Prototype");
         prototype.addActionListener(new ActionListener(){
@@ -41,25 +76,19 @@ public class ImageFrame extends JFrame {
                 performPrototype();
             }
         });
-        menu.add(prototype);
+        creational.add(prototype);
+    }
 
-		JMenuItem exit = new JMenuItem("Exit");
-		exit.addActionListener(new ActionListener(){
-			//this get's run on the EDT also!
-			public void actionPerformed(ActionEvent event){
-				System.exit(0);
-			}
-		});
-		menu.add(exit);
-		
-		//attach menu to menu bar
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.add(menu);
-		this.setJMenuBar(menuBar);
-	}
+    // ----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
 
-	public void performBuilder(){
-		//this class is the client
+    private void performAbstractFactory() {
+        //TODO
+        throw new UnsupportedOperationException();
+    }
+
+    public void performBuilder(){
+        //this class is the client
         PizzaImageBuilder builder = new PizzaImageBuilder();
         PizzaDirector director = new PizzaDirector(this);
 
@@ -69,7 +98,12 @@ public class ImageFrame extends JFrame {
         director.makeAnimatedPizza();
 
         //image = builder.getProduct();
-	}
+    }
+
+    public void performFactoryMethod(){
+        //TODO
+        throw new UnsupportedOperationException();
+    }
 
     public void performPrototype(){
         PrototypeFactory factory = new PrototypeFactory();
@@ -82,6 +116,112 @@ public class ImageFrame extends JFrame {
 
         // clonedPrototype is a prototype of prototype
     }
+
+    // ----------------------------------------------------------------------
+    // STRUCTURAL PATTERNS
+    // ----------------------------------------------------------------------
+
+    public void addStructuralPatterns(JMenuBar bar){
+        JMenu structural = new JMenu("Structural Patterns");
+        bar.add(structural);
+
+        JMenuItem composite = new JMenuItem("Composite");
+        composite.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                performComposite();
+            }
+        });
+        structural.add(composite);
+
+        JMenuItem decorator = new JMenuItem("Decorator");
+        decorator.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                performDecorator();
+            }
+        });
+        structural.add(decorator);
+    }
+
+    // ----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
+
+    public void performComposite(){
+        //TODO
+        throw new UnsupportedOperationException();
+    }
+
+    public void performDecorator(){
+        //TODO use a builder to have predefined sandwiches like at Jimmy John's
+        Sandwich sandwich = new LettuceToppingComponent(new TurkeyToppingComponent(new WheatBreadBaseComponent()));
+        sandwich.render();
+    }
+
+    // ----------------------------------------------------------------------
+    // BEHAVIORAL PATTERNS
+    // ----------------------------------------------------------------------
+
+    public void addBehavioralPatterns(JMenuBar bar){
+        JMenu behavioral = new JMenu("Behavioral Patterns");
+        bar.add(behavioral);
+
+        JMenuItem iterator = new JMenuItem("Iterator");
+        iterator.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                performIterator();
+            }
+        });
+        behavioral.add(iterator);
+
+        JMenuItem state = new JMenuItem("State");
+        state.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                performState();
+            }
+        });
+        behavioral.add(state);
+
+        JMenuItem strategy = new JMenuItem("Strategy");
+        strategy.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                performStrategy();
+            }
+        });
+        behavioral.add(strategy);
+
+        JMenuItem templateMethod = new JMenuItem("Template Method");
+        templateMethod.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                performTemplateMethod();
+            }
+        });
+        behavioral.add(templateMethod);
+    }
+
+    // ----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
+
+    public void performIterator(){
+        //TODO
+        throw new UnsupportedOperationException();
+    }
+
+    public void performState(){
+        //TODO
+        throw new UnsupportedOperationException();
+    }
+
+    public void performStrategy(){
+        //TODO
+        throw new UnsupportedOperationException();
+    }
+
+    public void performTemplateMethod(){
+        //TODO
+        throw new UnsupportedOperationException();
+    }
+
+    // ----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
 
     public void displayBufferedImage(){
         ImageIcon icon = new ImageIcon(image);
