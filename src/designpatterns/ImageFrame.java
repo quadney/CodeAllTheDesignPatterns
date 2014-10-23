@@ -1,5 +1,6 @@
 package designpatterns;
 
+import creational.abstractfactory.*;
 import creational.builder.PizzaDirector;
 import creational.builder.PizzaImageBuilder;
 import structural.decorator.LettuceToppingComponent;
@@ -86,8 +87,14 @@ public class ImageFrame extends JFrame {
     // ----------------------------------------------------------------------
 
     private void performAbstractFactory() {
-        //TODO
-        throw new UnsupportedOperationException();
+        TwoWheeledFactory twoWheeledFactory = new TwoWheeledFactory();
+
+        MechanicalVehicle bicycle = twoWheeledFactory.createMechanicalVehicle();
+        MotorizedVehicle motorcycle = twoWheeledFactory.createMotorizedVehicle();
+
+        ThreeWheeledFactory threeWheeledFactory = new ThreeWheeledFactory();
+        MechanicalVehicle tricycle = threeWheeledFactory.createMechanicalVehicle();
+        MotorizedVehicle trimotorcycel = threeWheeledFactory.createMotorizedVehicle();
     }
 
     public void performBuilder(){
@@ -99,8 +106,6 @@ public class ImageFrame extends JFrame {
 
         System.out.println("making animated pizza");
         director.makeAnimatedPizza();
-
-        //image = creational.builder.getProduct();
     }
 
     public void performFactoryMethod(){
