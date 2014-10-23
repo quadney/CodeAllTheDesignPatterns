@@ -8,6 +8,9 @@ import decorator.TurkeyToppingComponent;
 import decorator.WheatBreadBaseComponent;
 import prototype.ConcretePrototypeA;
 import prototype.PrototypeFactory;
+import state.AliveHuman;
+import state.AliveZombie;
+import state.PersonState;
 
 import java.awt.event.*;
 import java.awt.image.*;
@@ -206,8 +209,13 @@ public class ImageFrame extends JFrame {
     }
 
     public void performState(){
-        //TODO
-        throw new UnsupportedOperationException();
+        PersonState person = new AliveHuman();
+        System.out.println("Human gets killed by Zombie!");
+        person.die();
+
+        PersonState zombie = new AliveZombie();
+        System.out.println("Now we have a zombie:");
+        zombie.die();
     }
 
     public void performStrategy(){
