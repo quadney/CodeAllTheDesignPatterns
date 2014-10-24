@@ -3,10 +3,7 @@ package designpatterns;
 import creational.abstractfactory.*;
 import creational.builder.PizzaDirector;
 import creational.builder.PizzaImageBuilder;
-import structural.decorator.LettuceToppingComponent;
-import structural.decorator.Sandwich;
-import structural.decorator.TurkeyToppingComponent;
-import structural.decorator.WheatBreadBaseComponent;
+import structural.decorator.*;
 import creational.prototype.ConcretePrototypeA;
 import creational.prototype.PrototypeFactory;
 import behavioral.state.AliveHuman;
@@ -116,13 +113,13 @@ public class ImageFrame extends JFrame {
     public void performPrototype(){
         PrototypeFactory factory = new PrototypeFactory();
 
-        // create a new creational.prototype instance
+        // create a new prototype instance
         ConcretePrototypeA cPrototypeA = new ConcretePrototypeA();
 
-        // clone the creational.prototype
+        // clone the prototype
         ConcretePrototypeA clonedPrototype = (ConcretePrototypeA) factory.getClone(cPrototypeA);
 
-        // clonedPrototype is a creational.prototype of creational.prototype
+        // clonedPrototype is a prototype of prototype
     }
 
     // ----------------------------------------------------------------------
@@ -159,8 +156,12 @@ public class ImageFrame extends JFrame {
     }
 
     public void performDecorator(){
-        //TODO use a creational.builder to have predefined sandwiches like at Jimmy John's
+        //TODO use a builder to have predefined sandwiches like at Jimmy John's
         Sandwich sandwich = new LettuceToppingComponent(new TurkeyToppingComponent(new WheatBreadBaseComponent()));
+        sandwich.render();
+
+        //add mayo to the sandwich
+        sandwich = new MayCondimentComponent(sandwich);
         sandwich.render();
     }
 
