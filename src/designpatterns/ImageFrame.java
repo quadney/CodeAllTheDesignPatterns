@@ -1,8 +1,13 @@
 package designpatterns;
 
+import behavioral.iterator.CompositeIterator;
 import creational.abstractfactory.*;
 import creational.builder.PizzaDirector;
 import creational.builder.PizzaImageBuilder;
+import structural.composite.ArrayComposite;
+import structural.composite.BinaryComposite;
+import structural.composite.Leaf;
+import structural.composite.LinkedListComposite;
 import structural.decorator.*;
 import creational.prototype.ConcretePrototypeA;
 import creational.prototype.PrototypeFactory;
@@ -151,8 +156,14 @@ public class ImageFrame extends JFrame {
     // ----------------------------------------------------------------------
 
     public void performComposite(){
-        //TODO
-        throw new UnsupportedOperationException();
+        Leaf leaf = new Leaf("THIS");
+        BinaryComposite binaryCom = new BinaryComposite("BinaryComposite", new Leaf("A"));
+        System.out.println(binaryCom.toString());
+
+        LinkedListComposite lc = new LinkedListComposite("LinkedListComposite",  new Leaf( "A" ), new Leaf( "B" ) );
+        ArrayComposite ac = new ArrayComposite("ArrayComposite", new Leaf( "C" ), lc, new Leaf( "D" ), leaf );
+        System.out.println(ac.toString());
+        System.out.println(leaf.toString());
     }
 
     public void performDecorator(){
@@ -210,8 +221,17 @@ public class ImageFrame extends JFrame {
     // ----------------------------------------------------------------------
 
     public void performIterator(){
-        //TODO
-        throw new UnsupportedOperationException();
+        Leaf leaf = new Leaf("THIS");
+        BinaryComposite binaryCom = new BinaryComposite("BinaryComposite", new Leaf("A"));
+
+        LinkedListComposite lc = new LinkedListComposite("LinkedListComposite",  new Leaf( "A" ), new Leaf( "B" ) );
+        ArrayComposite ac = new ArrayComposite("ArrayComposite", new Leaf( "C" ), lc, new Leaf( "D" ), leaf, binaryCom );
+
+        CompositeIterator iter =  ac.makeIterator();
+
+        for(iter.reset(); iter.hasNext(); iter.next()){
+            System.out.println(iter.currentItem().toString());
+        }
     }
 
     public void performState(){
